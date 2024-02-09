@@ -16,7 +16,7 @@ import { styles } from "./App.style";
 const DATA = [
   {
     id: "1",
-    title: "Meditation",
+    title: "Gym",
     completed: false,
   },
   {
