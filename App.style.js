@@ -70,4 +70,22 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
   },
+  itemRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#6DB6DD",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 10,
+  },
+
+  item: {
+    // Other styles for your item (minus any flex properties or margins that could interfere with the layout)
+  },
+
+  removeIcon: {
+    // Style for your remove icon, if necessary
+  },
 });

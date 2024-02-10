@@ -59,19 +59,40 @@ export default function App() {
     }
   };
 
-  const TodoItem = (props) => (
-    <TouchableOpacity
-      style={(styles.item, { backgroundColor: props.item })}
-      onPress={() => markItemCompleted(props.item.color)}
-    >
-      <Text
-        style={
-          props.item.completed ? styles.itemTextCompleted : styles.itemText
-        }
+  // const TodoItem = (props) => (
+  //   <TouchableOpacity
+  //     style={[styles.item, { backgroundColor: props.item.color }]}
+  //     onPress={() => markItemCompleted(props.item)}
+  //   >
+  //     <Text
+  //       style={
+  //         props.item.completed ? styles.itemTextCompleted : styles.itemText
+  //       }
+  //     >
+  //       {props.item.title}
+  //     </Text>
+  //   </TouchableOpacity>
+  // );
+
+  const TodoItem = ({ item }) => (
+    <View style={styles.itemRow}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => markItemCompleted(item)}
       >
-        {props.item.title}
-      </Text>
-    </TouchableOpacity>
+        <Text
+          style={item.completed ? styles.itemTextCompleted : styles.itemText}
+        >
+          {item.title}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.removeIcon}
+        onPress={() => removeTodo(item.id)}
+      >
+        <Ionicons name="remove-circle-outline" size={36} color="red" />
+      </TouchableOpacity>
+    </View>
   );
 
   const renderAddButton = () => {
@@ -87,6 +108,10 @@ export default function App() {
     );
   };
 
+  const removeTodo = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Modal
@@ -95,11 +120,17 @@ export default function App() {
         onRequestClose={() => setIsModalVisible(!isModalVisible)}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView}></View>
+          <View style={styles.modalView}>
+            <TextInput
+              style={styles.input}
+              onChangeText={setText}
+              value={text}
+            />
+            <Button title="Add Todo" onPress={addNewTodo} />
+          </View>
         </View>
-        <TextInput style={styles.input} onChangeText={setText} value={text} />
-        <Button title="Add Todo" onPress={addNewTodo} />
       </Modal>
+
       <StatusBar style="auto" />
       <FlatList
         style={styles.list}
